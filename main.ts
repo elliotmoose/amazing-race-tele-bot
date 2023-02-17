@@ -110,8 +110,12 @@ async function replyWithClue(
 
 async function announceToAll(message: string) {
   const chatIds = await getGroupIds();
-  for (let chatId of chatIds) {
-    bot.api.sendMessage(chatId, message, { parse_mode: "HTML" });
+  try {
+    for (let chatId of chatIds) {
+      bot.api.sendMessage(chatId, message, { parse_mode: "HTML" });
+    }
+  } catch (error) {
+    console.error(error);
   }
 }
 
