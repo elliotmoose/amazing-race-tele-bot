@@ -1,0 +1,20 @@
+INTERCEPTED CONVERSATION ••• LEVEL 3 ACCESS CLASSIFICATION
+==========================================================
+:IDENTITY
+  Samantha (ID: 1126-3221)
+  Padu (ID: 9822-4315)
+:encryption method:
+  [QKD - QUANTUM]
+:datetime-begin:
+  [12-01-2045//09:14:26]
+:message:
+
+S:[12-01-2045//09:14:26] Is everything in place?
+P:[12-01-2045//09:14:32] Yes. 
+S:[12-01-2045//09:14:56] Good. Let's proceed then.
+P:[12-01-2045//09:15:22] What about the cure? Will it be ready in time?
+S:[12-01-2045//09:15:31] That's for me to worry about.
+P:[12-01-2045//09:15:59] What if he finds out?
+S:[12-01-2045//09:16:26] Then you'll be ready to tie up loose ends. I'm not paying you for nothing.
+
+:end

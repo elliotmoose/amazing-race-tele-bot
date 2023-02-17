@@ -1,0 +1,13 @@
+> trigger
+  /search The Yards
+
+> location
+  400
+
+> message
+  το μόνο που χρειάζεστε είναι K█████
+
+> translate
+  All you need is t͌̾ͧ̃̚i̅ͤ̈́̿ͯm̆ͮ̒ͥͩe̾̈̅̆
+
+> /hack with with key

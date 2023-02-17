@@ -1,0 +1,21 @@
+{
+  "name": "generic-tele-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@grammyjs/conversations": "^1.1.0",
+    "@prisma/client": "^4.9.0",
+    "dotenv": "^16.0.3",
+    "grammy": "^1.13.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "prisma": "^4.9.0"
+  }
+}
