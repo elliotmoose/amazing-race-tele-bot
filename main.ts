@@ -112,7 +112,9 @@ async function announceToAll(message: string) {
   const chatIds = await getGroupIds();
   try {
     for (let chatId of chatIds) {
-      bot.api.sendMessage(chatId, message, { parse_mode: "HTML" });
+      bot.api.sendMessage(chatId, message, { parse_mode: "HTML" }).catch(() => {
+        console.error("failed to send message to " + chatId);
+      });
     }
   } catch (error) {
     console.error(error);
