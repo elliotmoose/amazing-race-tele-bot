@@ -316,7 +316,6 @@ B̓̈u̿̈́̉̒̂̚tͨ̂̄̎̊̒ͪ w̓̎ͨ͋̂͗i͑ͩͬ͌ͪ̚s͗͒ͩͨ̋̓ͯd̆̈
 bot.catch(async (err) => {
   console.error(err);
   // await prisma.$disconnect();
-  process.exit(1);
 });
 
 async function startBot() {

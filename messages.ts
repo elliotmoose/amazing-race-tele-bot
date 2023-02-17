@@ -13,7 +13,7 @@ export function welcomeMessage(accessLevel: number, chatId: number) {
 
 
 <b>> COMMANDS </b> 
-/search &lt;KEYWORD&gt; - Look up keywords or people
+/search &lt;KEYWORD&gt; - Look up keywords, people, locations or codes
 /news &lt;DD-MM-YYYY&gt; - Look up news for a date
 /cams &lt;LOC CODE&gt; - Look up surveillance for a location code
 /hack &lt;HACK CODE&gt; - Intercept messages or hack into systems
