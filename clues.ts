@@ -74,6 +74,7 @@ export const locationSearch: Record<string, Clue | Clue[]> = {
   ],
   // access level 2: barber padu, shaking hands
   a8g7k9l0_2: photo("./cams/A8G7K9L0_2.png"),
+  a8g7k9l0_3: photo("./cams/A8G7K9L0_3.png"),
   b6h5m1n2: photo("./cams/rock_1.png"),
   e1f2g3h4: photo("./cams/rock_2.png"),
   c4d3e2f1: photo("./cams/rock_3.png"),
@@ -103,7 +104,7 @@ export const accessLevelRequirements: Record<string, number> = {
   h1i2j3k4: 3, // argument audio /cams
   p9q8r7s6: 2, // seek truth /hack
   j7k6l5m4: 3, // east coast boat /cams
-  kronos: 3,
+  kronos: 2,
 };
 
 export const hackMap: Record<string, Clue | Clue[]> = {
