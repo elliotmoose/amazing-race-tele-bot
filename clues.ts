@@ -145,4 +145,5 @@ export const hackMap: Record<string, Clue | Clue[]> = {
     file("./files/H1I2J3K4.log"),
   ],
   m9n8o7p6: file("./files/M9N8O7P6.log"), // samantha and padu message
+  j7k6l5m4_3: file("./files/J7K6L5M4.log"), // escape boat
 };

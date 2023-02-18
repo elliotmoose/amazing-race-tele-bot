@@ -60,9 +60,10 @@ async function enforceBotInit(ctx: MyContext) {
 
 async function checkAccessLevelForCode(key: string, chatId: number) {
   const accessLevel = (await getGroupAccessLevel(chatId))!.accessLevel;
-  const hasAccessLevelRequirement = accessLevelRequirements[key] !== undefined;
+  const requiredLevel = accessLevelRequirements[key];
+  const hasAccessLevelRequirement = requiredLevel !== undefined;
   const hasInsufficientRights =
-    hasAccessLevelRequirement && accessLevel < accessLevelRequirements[key]!;
+    hasAccessLevelRequirement && accessLevel < requiredLevel!;
 
   let newKey = key;
   if (hasAccessLevelRequirement) {
@@ -71,6 +72,7 @@ async function checkAccessLevelForCode(key: string, chatId: number) {
 
   return {
     accessLevel,
+    requiredLevel,
     codeWithAccessPostfix: newKey,
     hasAccessLevelRequirement,
     hasInsufficientRights,
@@ -245,13 +247,21 @@ bot.command("hack", async (ctx) => {
   if (!ctx.message) return;
   const chatId = ctx.update.message.chat.id;
   const hackCode = ctx.message.text.split(" ").slice(1).join(" ");
-  const { accessLevel, codeWithAccessPostfix, hasAccessLevelRequirement } =
-    await checkAccessLevelForCode(hackCode.toLowerCase(), chatId);
+  const {
+    accessLevel,
+    requiredLevel,
+    codeWithAccessPostfix,
+    hasAccessLevelRequirement,
+  } = await checkAccessLevelForCode(hackCode.toLowerCase(), chatId);
   if (!hackCode) {
     await ctx.reply("Usage: /hack <HACK CODE>");
   } else {
-    if (accessLevel < 2 && hasAccessLevelRequirement) {
-      await replyWithClue(str("Minimum access level 2 required"), ctx, "");
+    if (accessLevel < requiredLevel && hasAccessLevelRequirement) {
+      await replyWithClue(
+        str(`Minimum access level ${requiredLevel} required`),
+        ctx,
+        ""
+      );
     } else {
       await replyWithClue(
         hackMap[codeWithAccessPostfix],
