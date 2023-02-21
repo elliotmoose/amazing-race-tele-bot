@@ -32,3 +32,22 @@ export async function setGroupAccessLevel(chatId: number, accessLevel: number) {
     },
   });
 }
+export async function getGroupCheckpointLevel(chatId: number) {
+  const groupRecord = await prisma.groupAccessLevel.findFirst({
+    where: { groupId: `${chatId}` },
+  });
+
+  return groupRecord?.checkpointLevel ?? 0;
+}
+
+export async function setCheckpointLevel(
+  chatId: number,
+  checkpointLevel: number
+) {
+  return await prisma.groupAccessLevel.update({
+    where: { groupId: `${chatId}` },
+    data: {
+      checkpointLevel,
+    },
+  });
+}

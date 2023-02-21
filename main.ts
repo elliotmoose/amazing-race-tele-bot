@@ -17,16 +17,24 @@ import {
   hackMap,
   locationSearch,
   newsMap,
+  replaceWithAlias,
   searchMap,
   str,
 } from "./clues";
 import {
   createGroupRecord,
   getGroupAccessLevel,
+  getGroupCheckpointLevel,
   getGroupIds,
+  setCheckpointLevel,
   setGroupAccessLevel,
 } from "./database";
-import { accessLevelAnnouncement, welcomeMessage } from "./messages";
+import {
+  accessLevelAnnouncement,
+  checkpointAnnouncement,
+  welcomeMessage,
+  welcomeMessagePre,
+} from "./messages";
 
 // Create a bot object
 const teleBotToken = process.env.TELEGRAM_BOT_TOKEN;
@@ -91,14 +99,31 @@ async function replyWithClue(
   async function _replyWithClue(clue: Clue) {
     switch (clue.type) {
       case "file":
-        return ctx.replyWithDocument(new InputFile(clue.value));
+        return ctx.replyWithDocument(new InputFile(clue.value as string));
       case "photo":
-        return ctx.replyWithPhoto(new InputFile(clue.value), {
+        return ctx.replyWithPhoto(new InputFile(clue.value as string), {
           caption: clue.caption,
           parse_mode: "HTML",
         });
       case "string":
-        return ctx.reply(clue.value, { parse_mode: "HTML" });
+        return ctx.reply(clue.value as string, { parse_mode: "HTML" });
+      case "checkpoint":
+        const chatId = ctx.message?.chat.id;
+        if (!chatId) return;
+        const groupChat = ctx.update.message?.chat as Chat.GroupChat;
+        if (!groupChat.title) return;
+        const groupName = groupChat.title;
+
+        const curCheckpointLevel = await getGroupCheckpointLevel(chatId);
+        const alreadyPassedCheckpoint = curCheckpointLevel >= clue.value;
+        if (alreadyPassedCheckpoint) {
+          console.log(`${groupName} already passed checkpoint`);
+          return;
+        }
+        await setCheckpointLevel(chatId, clue.value as number);
+        return announceToAll(
+          checkpointAnnouncement(clue.value as number, groupName)
+        );
     }
   }
   if (Array.isArray(clue)) {
@@ -153,6 +178,9 @@ bot.command("start", async (ctx) => {
   if (!accessLevel) {
     accessLevel = await createGroupRecord(chatId);
   }
+  await ctx.reply(welcomeMessagePre(), {
+    parse_mode: "HTML",
+  });
   await ctx.reply(welcomeMessage(accessLevel!.accessLevel, chatId), {
     parse_mode: "HTML",
   });
@@ -164,42 +192,43 @@ bot.command("start", async (ctx) => {
 bot.command("search", async (ctx) => {
   if (!(await enforceBotInit(ctx))) return;
   if (!ctx.message) return;
-  const keyword = ctx.message.text.split(" ").slice(1).join(" ");
-  const key = keyword.toLowerCase();
-  if (!keyword) {
-    await ctx.reply("Usage: /search <SEARCH KEYWORD>");
+  const originalSearchKey = ctx.message.text.split(" ").slice(1).join(" ");
+  const newKey = replaceWithAlias(originalSearchKey);
+  if (!originalSearchKey) {
+    await ctx.reply(`Usage: /search <SEARCH KEYWORD>
+Example: /search 1234`);
   } else {
-    if (searchMap[key]) {
+    if (searchMap[newKey]) {
       await replyWithClue(
-        searchMap[key],
+        searchMap[newKey],
         ctx,
-        `No search results found for "${keyword}"`
+        `No search results found for "${originalSearchKey}"`
       );
     } else {
       const { codeWithAccessPostfix } = await checkAccessLevelForCode(
-        key,
+        newKey,
         ctx.message.chat.id
       );
       if (locationSearch[codeWithAccessPostfix] !== undefined) {
         await ctx.reply(
-          `${keyword} is a location code for surveillance cameras.`
+          `${originalSearchKey} is a location code for surveillance cameras.`
         );
         return;
       }
 
       if (hackMap[codeWithAccessPostfix] !== undefined) {
         await ctx.reply(
-          `${keyword} is an access key used to hack into systems.`
+          `${originalSearchKey} is an access key used to hack into systems.`
         );
         return;
       }
 
       if (newsMap[codeWithAccessPostfix] !== undefined) {
-        await ctx.reply(`news found for date: ${keyword}`);
+        await ctx.reply(`news found for date: ${originalSearchKey}`);
         return;
       }
 
-      await ctx.reply(`No search results found for "${keyword}"`);
+      await ctx.reply(`No search results found for "${originalSearchKey}"`);
     }
   }
 });
@@ -213,7 +242,8 @@ bot.command("news", async (ctx) => {
     return dateRegex.test(date);
   };
   if (!date || !isValidDate(date)) {
-    await ctx.reply("Usage: /news <DD-MM-YYYY>");
+    await ctx.reply(`Usage: /news <DD-MM-YYYY>
+Example: /news 01-01-2045`);
   } else {
     await replyWithClue(newsMap[date], ctx, "No news found for that date");
   }
@@ -232,7 +262,8 @@ bot.command("cams", async (ctx) => {
   console.log("/cams", codeWithAccessPostfix);
 
   if (!locationCode) {
-    await ctx.reply("Usage: /search <LOCATION CODE>");
+    await ctx.reply(`Usage: /cams <LOCATION CODE>
+Example: /cams 12345`);
   } else {
     await replyWithClue(
       locationSearch[codeWithAccessPostfix],
@@ -254,7 +285,8 @@ bot.command("hack", async (ctx) => {
     hasAccessLevelRequirement,
   } = await checkAccessLevelForCode(hackCode.toLowerCase(), chatId);
   if (!hackCode) {
-    await ctx.reply("Usage: /hack <HACK CODE>");
+    await ctx.reply(`Usage: /hack <HACK CODE>
+Example: /hack 12345`);
   } else {
     if (accessLevel < requiredLevel && hasAccessLevelRequirement) {
       await replyWithClue(
@@ -288,10 +320,6 @@ bot.on("message:text", async (ctx) => {
       await ctx.reply("You already have access.");
       return;
     }
-    //     await ctx.reply(`
-    // ‎
-
-    // B̓̈u̿̈́̉̒̂̚tͨ̂̄̎̊̒ͪ w̓̎ͨ͋̂͗i͑ͩͬ͌ͪ̚s͗͒ͩͨ̋̓ͯd̆̈͌ͥo̾ͯ͛̍̒̚m̂̈́̂̆̋̚ ̃̔̔l̾̍̓̚i̍̑ͩͬ͂̑s̒̔̔̔̚t̐̑̌ͭ̊e̓̈̈́̃̌nͦ̄̅̔s̾̋̎̂̒`);
     await setGroupAccessLevel(ctx.update.message.chat.id, 2);
     await ctx.reply("> ACCESS LEVEL 2: GRANTED");
     const groupChat = ctx.update.message.chat as Chat.GroupChat;

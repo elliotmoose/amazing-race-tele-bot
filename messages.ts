@@ -1,9 +1,11 @@
-export function welcomeMessage(accessLevel: number, chatId: number) {
+export function welcomeMessagePre() {
   return `‎
   
-<b>T̉͑̃ͦͧh̒̔ͤ̓e̓͊ ̈́ͮͥ̆ͯE͊̎ͯ̅͒yͧ̉̍ͤe̍̿ͬ̐̃ ͮ̓̂̃ ͐OS̐ͫͧͦ v͒̄9̐̓.̐ͩ̌͊̇̒1ͤͧ̀͒̇</b>
-=============
-<code>
+  <b>T̉͑̃ͦͧh̒̔ͤ̓e̓͊ ̈́ͮͥ̆ͯE͊̎ͯ̅͒yͧ̉̍ͤe̍̿ͬ̐̃ ͮ̓̂̃ ͐OS̐ͫͧͦ v͒̄9̐̓.̐ͩ̌͊̇̒1ͤͧ̀͒̇</b>
+`;
+}
+export function welcomeMessage(accessLevel: number, chatId: number) {
+  return `<code>
 > System initialized...
 </code>
 
@@ -46,7 +48,7 @@ Current access level: ${accessLevel}
 
 // unredacted report from police
 export const noAccessSynthesisReport = `<b>> PERMISSION ACCESS ERROR</b>
-An additional classified document has been safeguarded with a higher access level. Increase access level before requesting information.
+Failed to access attached document. The additional classified document has been safeguarded with a higher access level. Increase access level before requesting information.
 Current access level: 2
 
 <u>Enter Pass Key to Unlock Access Level 3</u>
@@ -72,3 +74,36 @@ export function accessLevelAnnouncement(
 Group: <b>${groupName}</b> has achieved level ${accessLevel} access 🔓.
 `;
 }
+
+export function checkpointAnnouncement(checkpoint: number, groupName: string) {
+  switch (checkpoint) {
+    case 1:
+      return `<b>*** 🔥 ANNOUNCEMENT: OFF WE GO 🔥 ***</b>
+Group: <b>${groupName}</b> has found their first location.
+`;
+    case 9:
+      return `<b>*** 🔥 ANNOUNCEMENT 🔥 ***</b>
+Group: <b>${groupName}</b> is heading toward their FINAL destination.
+`;
+
+    default:
+      return `<b>*** 🔥 ANNOUNCEMENT 🔥 ***</b>
+Group: <b>${groupName}</b> has found clue #${checkpoint}.
+`;
+  }
+}
+
+export const yards_400 = `> trigger
+  /search The Yards
+
+> location
+  400
+
+> message
+  το μόνο που χρειάζεστε είναι K█████
+
+> translate
+  All you need is t͌̾ͧ̃̚i̅ͤ̈́̿ͯm̆ͮ̒ͥͩe̾̈̅̆
+
+> /hack with with key
+`;
