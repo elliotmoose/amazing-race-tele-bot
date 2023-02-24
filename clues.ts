@@ -14,6 +14,12 @@ const aliases = new Map(
     "breakwater 4": ["breakwater4"],
     "golden mountain facility": ["golden mountain"],
     "the trumps": ["trumps", "trump tower", "the trump"],
+    nrs: ["Neurodegenerative Reanimation Syndrome"],
+    "masjid kassim": ["kassim", "masjid"],
+    "wakaf kassim": ["wakaf"],
+    "victor he": ["victor"],
+    "dr nathan": ["nathan"],
+    "dr samantha": ["samantha"],
   })
 );
 
@@ -89,6 +95,27 @@ In Singapore, Aroma Bio Chemical is the sole authorised entity to process such w
   ],
   "breakwater 4": [photo("./files/breakwater_4.png"), checkpoint(9)],
   essentials: [photo("./files/essentials.png"), checkpoint(8)],
+  nrs: str(
+    `The Neurodegenerative Reanimation Syndrome (NRS) Virus is a virus that turns its host into a cannibalistic zombie. It was first discovered on 13-01-2045 at the Masjid Kassim Incident.`
+  ),
+  "the trumps": str(
+    `The Trumps is the building that houses the Donald Trump's HQ. It is also identified as the location by which Victor He was last seen.`
+  ),
+  "masjid kassim": str(
+    `Masjid Kassim is a mosque located in the heart of Singapore. It is the location of the first outbreak of the NRS virus.`
+  ),
+  "donald trump": str(
+    `Donald Trump is a renowned billionaire as well as politician. He has recently committed publicly to finding a cure to the NRS virus, and has personally funded much of Aroma Bio Chemical's research.`
+  ),
+  "victor he": str(
+    `Victor He is known as the one who holds the Interleukin 10 Receptor Subunit Alpha (IL10RA) gene, the potential cure to the NRS virus. He was working closely with Aroma Bio Chemical to develop a cure to the NRS virus, till he went missing on 31-01-2045.`
+  ),
+  "dr samantha": str(
+    `Dr. Samantha is daughter to the CEO of Aroma Bio Chemical (ABC), and Head of Operations at ABC. She is has been instrumental to the success of the company, and has been spearheading the push for a cure.`
+  ),
+  "dr nathan": str(
+    `Dr. Nathan is a highly accomplished scientist and a leading expert in the field of biochemical research. He is the Head of Research at Aroma Bio Chemical and is reportedly missing. He is suspected to be the murder of Victor He.`
+  ),
 };
 
 export const locationSearch: Record<string, Clue | Clue[]> = {

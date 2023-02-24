@@ -6,9 +6,7 @@ INTERCEPTED TRANSMISSION ••• LEVEL 1 ACCESS CLASSIFICATION
   [RSA - ASYMMETRIC]
 :message:
   A word is formed, but can you see?
-  Find your way to that property.
-  By the pillars can be found,
-  /search the owner by which it's found
+  Find your way to the property:  
 
   Kneeling hearts come here for peace of mind
   A place where faith and devotion is aligned.
@@ -16,6 +14,8 @@ INTERCEPTED TRANSMISSION ••• LEVEL 1 ACCESS CLASSIFICATION
   Standing tall with two pillars of its kind.
   In this sacred place, worshipers convene,
   Marked by address, 448 and 450.
-
 :extra:
+  Above the pillars can be found,
+  /search the owner the property is bound.
+:details:
   Location Proximity: <200m
