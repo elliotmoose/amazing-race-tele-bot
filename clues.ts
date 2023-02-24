@@ -98,7 +98,11 @@ In Singapore, Aroma Bio Chemical is the sole authorised entity to process such w
     checkpoint(5),
   ],
   "breakwater 4": [photo("./files/breakwater_4.png"), checkpoint(9)],
-  essentials: [photo("./files/essentials.png"), checkpoint(8)],
+  essentials: [
+    photo("./files/essentials.png"),
+    file("./files/goodbye.txt"),
+    checkpoint(8),
+  ],
   nrs: str(
     `The Neurodegenerative Reanimation Syndrome (NRS) Virus is a virus that turns its host into a cannibalistic zombie. It was first discovered on 13-01-2045 at the Masjid Kassim Incident.`
   ),
