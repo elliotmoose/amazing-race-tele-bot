@@ -30,7 +30,7 @@ export function replaceWithAlias(text: string) {
     }
   }
 
-  return text;
+  return text.toLowerCase();
 }
 
 export type Clue = {
@@ -69,8 +69,12 @@ export function checkpoint(value: number): Clue {
 }
 
 export const newsMap: Record<string, Clue | Clue[]> = {
-  "14-01-2045": [photo("./news/masjid_kassim.png"), checkpoint(2)],
-  "01-02-2045": photo("./news/trump_towers.png"),
+  "14-01-2045": [
+    str(`pulling records...`),
+    photo("./news/masjid_kassim.png"),
+    checkpoint(2),
+  ],
+  "01-02-2045": [str(`pulling records...`), photo("./news/trump_towers.png")],
 };
 
 export const searchMap: Record<string, Clue | Clue[]> = {
@@ -119,15 +123,23 @@ In Singapore, Aroma Bio Chemical is the sole authorised entity to process such w
 };
 
 export const locationSearch: Record<string, Clue | Clue[]> = {
-  wx304912: [photo("./cams/trump_tower_cams.png"), checkpoint(1)],
+  wx304912: [
+    str(`pulling surveillance...`),
+    photo("./cams/trump_tower_cams.png"),
+    checkpoint(1),
+  ],
   // access level 1: barber padu, shaking hands
   a8g7k9l0_1: [
     photo("./cams/A8G7K9L0_1.png"),
     photo("./files/access_level_2.png", noAccessPrivateWhereabouts),
   ],
   // access level 2: barber padu, shaking hands
-  a8g7k9l0_2: [photo("./cams/A8G7K9L0_2.png"), checkpoint(3)],
-  a8g7k9l0_3: photo("./cams/A8G7K9L0_3.png"),
+  a8g7k9l0_2: [
+    str(`pulling surveillance...`),
+    photo("./cams/A8G7K9L0_2.png"),
+    checkpoint(3),
+  ],
+  a8g7k9l0_3: [str(`pulling surveillance...`), photo("./cams/A8G7K9L0_3.png")],
   b6h5m1n2: photo("./cams/rock_1.png"),
   e1f2g3h4: photo("./cams/rock_2.png"),
   c4d3e2f1: photo("./cams/rock_3.png"),
@@ -142,13 +154,14 @@ export const locationSearch: Record<string, Clue | Clue[]> = {
   ],
   // padu following victor
   114034: [
+    str(`pulling surveillance...`),
     photo("./cams/police_post_cams.png"),
     str(policePostNetworkVulnerability),
   ],
   // access_level 2: escape boat
-  j7k6l5m4_2: photo("./cams/J7K6L5M4_2.png"),
+  j7k6l5m4_2: [str(`pulling surveillance...`), photo("./cams/J7K6L5M4_2.png")],
   // access_level 3: escape boat
-  j7k6l5m4_3: photo("./cams/J7K6L5M4_3.png"),
+  j7k6l5m4_3: [str(`pulling surveillance...`), photo("./cams/J7K6L5M4_3.png")],
 };
 
 // a map to check if there exists some sort of access level requirements for any clue code
@@ -190,6 +203,7 @@ export const hackMap: Record<string, Clue | Clue[]> = {
     checkpoint(6),
   ],
   kronos_3: [
+    str(`pulling surveillance...`),
     photo("./cams/the_argument.png"), // Side Clue
     file("./files/H1I2J3K4.txt"),
   ],

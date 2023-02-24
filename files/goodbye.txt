@@ -1,0 +1,8 @@
+INTERCEPTED TRANSMISSION ••• LEVEL 1 ACCESS CLASSIFICATION
+==========================================================
+:Sender
+  Anonymous
+:encryption method:
+  [RSA - ASYMMETRIC]
+:message:
+  If you see this.. I really could use the extra hand. Find me.

@@ -48,7 +48,7 @@ Current access level: ${accessLevel}
 
 // unredacted report from police
 export const noAccessSynthesisReport = `<b>> PERMISSION ACCESS ERROR</b>
-Failed to access attached document. The additional classified document has been safeguarded with a higher access level. Increase access level before requesting information.
+Failed to access attached document. An additional document has been safeguarded with a higher access level. Increase access level before requesting information.
 Current access level: 2
 
 <u>Enter Pass Key to Unlock Access Level 3</u>
